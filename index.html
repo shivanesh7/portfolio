@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of Shri Shivanesh S R - Software Developer & Full-Stack Web Developer. Interactive 3D design, projects, and skills for recruiters.">
+    <title>Shri Shivanesh S R | Interactive Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. Background System -->
+    <div class="bg-wrapper">
+        <!-- Scrollable Keyboard Background Image -->
+        <div class="keyboard-bg-container active" id="keyboard-bg-container">
+            <div class="keyboard-glow-layer"></div>
+        </div>
+
+        <!-- Interactive 3D Canvas Background -->
+        <canvas id="bg-canvas"></canvas>
+        
+        <!-- Loopable Abstract Background Video -->
+        <div class="video-bg-container" id="video-bg-container">
+            <video id="bg-video" autoplay loop muted playsinline poster="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100%' height='100%' fill='%23050515'/></svg>">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-nebula-of-stars-in-deep-space-preview-11883-large.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <!-- Background Overlay / Glass Filter -->
+        <div class="bg-overlay"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- 2. Translucent Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <span class="logo-symbol">&lt;</span>S<span class="logo-accent">S</span><span class="logo-symbol">/&gt;</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#hero" class="active">Home</a></li>
+            <li><a href="#profile">Profile</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#timeline">Achievements</a></li>
+            <li><a href="#recruiter">Recruiter Corner</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="nav-toggle" aria-label="Toggle navigation" id="nav-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- 3. Floating Background Customizer -->
+    <div class="customizer-widget" id="customizer-widget">
+        <button class="customizer-toggle" id="customizer-toggle" title="Customize Background">
+            <i class="fas fa-palette"></i>
+        </button>
+        <div class="customizer-panel">
+            <h4>Background Theme</h4>
+            <div class="theme-options">
+                <button class="theme-btn active" data-theme="keyboard" title="Scrollable Cyberpunk Keyboard">
+                    <i class="fas fa-keyboard"></i> Cyberpunk Keyboard
+                </button>
+                <button class="theme-btn" data-theme="3d-particles" title="Real-time 3D Particle Wave">
+                    <i class="fas fa-atom"></i> 3D Mesh
+                </button>
+                <button class="theme-btn" data-theme="video" title="Space Nebula Loop Video">
+                    <i class="fas fa-video"></i> Space Video
+                </button>
+                <button class="theme-btn" data-theme="neon" title="Solid Neon Cyberpunk Gradients">
+                    <i class="fas fa-brush"></i> Neon Gradient
+                </button>
+            </div>
+            <div class="sound-control-section" id="video-sound-control" style="display: none;">
+                <hr>
+                <div class="toggle-control">
+                    <span>Background Sound</span>
+                    <button class="sound-btn" id="sound-toggle-btn" title="Unmute Video">
+                        <i class="fas fa-volume-mute"></i> Muted
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Floating Recruiter Quick Actions Panel (Right Side Desktop) -->
+    <div class="recruiter-quick-card" id="recruiter-quick-card">
+        <div class="quick-header">
+            <i class="fas fa-briefcase"></i>
+            <span>Recruiter Center</span>
+        </div>
+        <div class="quick-body">
+            <div class="quick-status">
+                <span class="pulse-indicator"></span>
+                <span>Active Candidate (Fresher)</span>
+            </div>
+            <ul class="quick-stats">
+                <li><i class="fas fa-graduation-cap"></i> B.E. CSE (Grad 2027)</li>
+                <li><i class="fas fa-star"></i> GPA: <strong>7.94 / 10</strong></li>
+                <li><i class="fas fa-check-circle"></i> NPTEL Certified</li>
+                <li><i class="fas fa-code"></i> React / Node / IoT</li>
+            </ul>
+            <div class="quick-actions">
+                <button class="btn btn-primary btn-sm btn-block" id="btn-print-resume">
+                    <i class="fas fa-download"></i> Get Resume (PDF)
+                </button>
+                <a href="#contact" class="btn btn-accent btn-sm btn-block text-center">
+                    <i class="fas fa-paper-plane"></i> Quick Hire/Email
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="container">
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="hero-section">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <span class="hero-pretitle" data-reveal="fade-up">Hello Recruiters, I am</span>
+                    <h1 class="hero-title" data-reveal="fade-up" data-delay="100">SHRI SHIVANESH S R</h1>
+                    <div class="typing-container" data-reveal="fade-up" data-delay="200">
+                        <span class="typing-prefix">I'm a </span>
+                        <span class="typing-text" id="typing-text"></span>
+                        <span class="typing-cursor">|</span>
+                    </div>
+                    <p class="hero-description" data-reveal="fade-up" data-delay="300">
+                        A motivated Computer Science student building premium full-stack web applications and IoT automations. 
+                        Equipped with hands-on experience in React, Node.js, and Firebase to solve real-world problems.
+                    </p>
+                    <div class="hero-buttons" data-reveal="fade-up" data-delay="400">
+                        <a href="#projects" class="btn btn-primary">
+                            <i class="fas fa-project-diagram"></i> Explore Projects
+                        </a>
+                        <a href="#contact" class="btn btn-outline">
+                            <i class="fas fa-envelope"></i> Let's Collaborate
+                        </a>
+                    </div>
+                    
+                    <div class="social-links" data-reveal="fade-up" data-delay="500">
+                        <a href="https://github.com/shivanesh7" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/shri-shivanesh" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="mailto:shrishivanesh007@gmail.com" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="tel:+917305789521" aria-label="Phone">
+                            <i class="fas fa-phone-alt"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Emad-Style HUD Profile Photo Cutout -->
+                <div class="hero-image-wrapper" data-reveal="fade-left" data-delay="300">
+                    <div class="hero-profile-container" id="hero-profile-container">
+                        <!-- Blinking glitch noise overlay -->
+                        <div class="hud-glitch-overlay"></div>
+                        <!-- Fine screen grid lines -->
+                        <div class="hud-grid-overlay"></div>
+                        <!-- Initial entrance scanner sweep -->
+                        <div class="hud-scanner"></div>
+                        <!-- Secondary loop scanline -->
+                        <div class="hud-scanner-loop"></div>
+                        
+                        <!-- Brackets/HUD corners -->
+                        <div class="hud-corner corner-tl"></div>
+                        <div class="hud-corner corner-tr"></div>
+                        <div class="hud-corner corner-bl"></div>
+                        <div class="hud-corner corner-br"></div>
+                        
+                        <!-- Profile Cutout Photo -->
+                        <img src="profile.jpg" alt="Shri Shivanesh S R Profile" class="profile-photo">
+                        
+                        <!-- Video Recording Overlay Details -->
+                        <div class="video-hud-overlay">
+                            <div class="hud-top">
+                                <div class="hud-rec">
+                                    <div class="hud-rec-dot"></div>
+                                    <span>REC</span>
+                                </div>
+                                <div class="hud-quality">1080P 60FPS</div>
+                            </div>
+                            <div class="hud-middle">
+                                <div class="hud-crosshair"></div>
+                            </div>
+                            <div class="hud-bottom">
+                                <div class="hud-time" id="hud-time-display">00:00:00</div>
+                                <div class="hud-mode">AI SCAN</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Stat Bar for Mobile/Tablet -->
+            <div class="mobile-stat-bar" data-reveal="fade-up" data-delay="600">
+                <div class="stat-item">
+                    <span class="stat-num">7.94</span>
+                    <span class="stat-label">CGPA</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-num">3+</span>
+                    <span class="stat-label">Full-Stack Projects</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-num">IIT</span>
+                    <span class="stat-label">NPTEL Certified</span>
+                </div>
+            </div>
+            
+            <a href="#profile" class="scroll-indicator" aria-label="Scroll Down">
+                <span>SCROLL DOWN</span>
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </section>
+
+        <!-- PROFILE / ABOUT SECTION -->
+        <section id="profile" class="profile-section">
+            <h2 class="section-title" data-reveal="fade-up">Professional Profile</h2>
+            
+            <div class="profile-grid">
+                <!-- Profile Left: Story and Background -->
+                <div class="profile-card glass-panel" data-reveal="fade-right">
+                    <div class="card-glow-overlay"></div>
+                    <div class="card-content">
+                        <h3><i class="fas fa-user-circle header-icon"></i> About Me</h3>
+                        <p class="profile-text">
+                            I am currently pursuing my <strong>B.E. in Computer Science & Engineering</strong> at 
+                            <em>Dr. NGP Institute of Technology</em>, Coimbatore (Expected May 2027). 
+                            My passion lies in bridging software development and automated hardware systems. 
+                        </p>
+                        <p class="profile-text">
+                            Throughout my academic journey, I have prioritized hands-on development over passive learning. 
+                            From designing web dashboards with real-time syncing to automating agricultural processes via IoT microcontrollers, 
+                            I approach challenges with a structured system-development lifecycle (SDLC) and object-oriented mindset.
+                        </p>
+                        
+                        <div class="profile-highlights">
+                            <div class="highlight-item">
+                                <i class="fas fa-compass icon-cyan"></i>
+                                <div>
+                                    <strong>Goal Oriented</strong>
+                                    <span>Seeking Fresher roles to contribute to real projects & scale technical expertise.</span>
+                                </div>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-cubes icon-purple"></i>
+                                <div>
+                                    <strong>Full-Stack Mastery</strong>
+                                    <span>Bridging interactive frontends (React) with solid database structures.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Right: Education, Soft Skills, Interests -->
+                <div class="profile-details-column">
+                    <!-- Education Card -->
+                    <div class="glass-panel education-card" data-reveal="fade-left">
+                        <div class="card-glow-overlay"></div>
+                        <div class="card-content">
+                            <h3><i class="fas fa-graduation-cap header-icon"></i> Education</h3>
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-cyan"></div>
+                                <div class="timeline-meta">
+                                    <span class="timeline-date">2023 – May 2027</span>
+                                    <h4>B.E. in Computer Science & Engineering</h4>
+                                    <p class="institution">Dr. NGP Institute of Technology, Coimbatore</p>
+                                    <span class="gpa-tag">GPA: 7.94 / 10</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-purple"></div>
+                                <div class="timeline-meta">
+                                    <span class="timeline-date">2021 – 2023</span>
+                                    <h4>Higher Secondary Certificate (12th Grade)</h4>
+                                    <p class="institution">Sri Ramana Vidyalaya</p>
+                                    <span class="gpa-tag">Result: 91%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soft Skills & Languages -->
+                    <div class="profile-subgrid">
+                        <div class="glass-panel" data-reveal="fade-up">
+                            <div class="card-content">
+                                <h3><i class="fas fa-users header-icon"></i> Key Strengths</h3>
+                                <ul class="soft-skills-list">
+                                    <li><i class="fas fa-check text-cyan"></i> Problem Solving</li>
+                                    <li><i class="fas fa-check text-purple"></i> Time Management</li>
+                                    <li><i class="fas fa-check text-cyan"></i> Active Communication</li>
+                                    <li><i class="fas fa-check text-purple"></i> Critical Thinking</li>
+                                    <li><i class="fas fa-check text-cyan"></i> Collaborative Teamwork</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="glass-panel" data-reveal="fade-up" data-delay="100">
+                            <div class="card-content">
+                                <h3><i class="fas fa-language header-icon"></i> Languages</h3>
+                                <div class="lang-bar">
+                                    <div class="lang-info">
+                                        <span>English</span>
+                                        <span>Professional</span>
+                                    </div>
+                                    <div class="progress-track"><div class="progress-fill" style="width: 85%;"></div></div>
+                                </div>
+                                <div class="lang-bar">
+                                    <div class="lang-info">
+                                        <span>Tamil</span>
+                                        <span>Native</span>
+                                    </div>
+                                    <div class="progress-track"><div class="progress-fill" style="width: 100%;"></div></div>
+                                </div>
+                                <hr class="card-divider">
+                                <h4>Interests</h4>
+                                <div class="tag-container">
+                                    <span class="badge">Full-Stack Dev</span>
+                                    <span class="badge">Healthcare Tech</span>
+                                    <span class="badge">IoT & Automation</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="projects-section">
+            <h2 class="section-title" data-reveal="fade-up">Featured Projects</h2>
+            <p class="section-subtitle" data-reveal="fade-up">Interact with the cards below by hovering to tilt them in 3D space.</p>
+            
+            <div class="projects-grid">
+                
+                <!-- Project 1: Medicare Assist -->
+                <div class="project-card glass-panel" data-reveal="fade-up" data-tilt>
+                    <div class="card-glow-overlay"></div>
+                    <div class="project-status-tag tag-progress">In Progress</div>
+                    <div class="card-content">
+                        <div class="project-header">
+                            <div class="project-icon icon-cyan">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <h3>MediCare Assist</h3>
+                        </div>
+                        <p class="project-desc">
+                            A smart healthcare companion web application designed for caretakers of elderly and infant patients. 
+                            Simplifies medical management through real-time updates and active alerting systems.
+                        </p>
+                        
+                        <div class="project-impact-box">
+                            <strong>Key Impact:</strong>
+                            <p>Multi-profile dashboards and custom triggers for vaccine timings & elderly medication compliance.</p>
+                        </div>
+                        
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">React JS</span>
+                            <span class="tech-tag">Node JS</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">Javascript</span>
+                        </div>
+                        
+                        <div class="project-links">
+                            <a href="https://github.com/shivanesh7" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+                                <i class="fab fa-github"></i> Repository
+                            </a>
+                            <span class="btn btn-disabled btn-sm">
+                                <i class="fas fa-lock"></i> Dev Build
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: SportSphere -->
+                <div class="project-card glass-panel" data-reveal="fade-up" data-delay="100" data-tilt>
+                    <div class="card-glow-overlay"></div>
+                    <div class="project-status-tag tag-completed">Completed</div>
+                    <div class="card-content">
+                        <div class="project-header">
+                            <div class="project-icon icon-purple">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <h3>SportSphere</h3>
+                        </div>
+                        <p class="project-desc">
+                            A sports event management platform streamlining registrations, tournament brackets, and scheduling 
+                            for local sports organizers. Enhances tournament transparency and participation.
+                        </p>
+                        
+                        <div class="project-impact-box">
+                            <strong>Key Impact:</strong>
+                            <p>Real-time score tracking via Cloud Firestore, enabling live updates on match results to public boards.</p>
+                        </div>
+                        
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">React JS</span>
+                            <span class="tech-tag">Node JS</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">Firestore</span>
+                        </div>
+                        
+                        <div class="project-links">
+                            <a href="https://github.com/shivanesh7" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+                                <i class="fab fa-github"></i> Repository
+                            </a>
+                            <a href="#" class="btn btn-outline btn-accent btn-sm">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Smart Plant Irrigation -->
+                <div class="project-card glass-panel" data-reveal="fade-up" data-delay="200" data-tilt>
+                    <div class="card-glow-overlay"></div>
+                    <div class="project-status-tag tag-completed">Completed</div>
+                    <div class="card-content">
+                        <div class="project-header">
+                            <div class="project-icon icon-pink">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <h3>Smart Plant Irrigation</h3>
+                        </div>
+                        <p class="project-desc">
+                            An automated IoT irrigation system merging hardware and embedded logic to monitor soil moisture 
+                            levels and control pumps automatically without human intervention.
+                        </p>
+                        
+                        <div class="project-impact-box">
+                            <strong>Key Impact:</strong>
+                            <p>Reduced garden water consumption and manual irrigation labor efforts by approximately 65%.</p>
+                        </div>
+                        
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">IoT / Sensors</span>
+                            <span class="tech-tag">Microcontroller</span>
+                            <span class="tech-tag">Embedded C</span>
+                            <span class="tech-tag">Hardware</span>
+                        </div>
+                        
+                        <div class="project-links">
+                            <a href="https://github.com/shivanesh7" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+                                <i class="fab fa-github"></i> Repository
+                            </a>
+                            <span class="btn btn-disabled btn-sm">
+                                <i class="fas fa-microchip"></i> Hardware Link
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Sniply URL Shortener -->
+                <div class="project-card glass-panel" data-reveal="fade-up" data-delay="300" data-tilt>
+                    <div class="card-glow-overlay"></div>
+                    <div class="project-status-tag tag-completed">Completed</div>
+                    <div class="card-content">
+                        <div class="project-header">
+                            <div class="project-icon icon-cyan">
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <h3>Sniply — URL Shortener</h3>
+                        </div>
+                        <p class="project-desc">
+                            A hackathon-winning, full-stack URL shortener designed to shrink long links into fast, customized aliases. 
+                            Features user accounts, real-time tracking, and downloadable QR codes.
+                        </p>
+                        
+                        <div class="project-impact-box">
+                            <strong>Key Impact:</strong>
+                            <p>Enabled comprehensive click tracking, geographic visits, and link expiry options with analytical chart representations.</p>
+                        </div>
+                        
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">React 18</span>
+                            <span class="tech-tag">Node JS</span>
+                            <span class="tech-tag">Express</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">Recharts</span>
+                        </div>
+                        
+                        <div class="project-links">
+                            <a href="https://github.com/shivanesh7/url-shortening" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+                                <i class="fab fa-github"></i> Repository
+                            </a>
+                            <a href="#" class="btn btn-outline btn-accent btn-sm">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section id="skills" class="skills-section">
+            <h2 class="section-title" data-reveal="fade-up">Technical Skillset</h2>
+            
+            <div class="skills-layout">
+                <!-- Left Column: Interactive 3D Canvas Sphere -->
+                <div class="skills-3d-container glass-panel" data-reveal="fade-right">
+                    <div class="card-content text-center">
+                        <h3><i class="fas fa-globe header-icon"></i> 3D Skill Tag Cloud</h3>
+                        <p class="section-subtitle">Click and drag inside the sphere to spin and interact with my stack in real-time 3D.</p>
+                        <div class="canvas-holder">
+                            <canvas id="skill-sphere-canvas" width="450" height="450"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Standard Structured Skills Grid -->
+                <div class="skills-categories" data-reveal="fade-left">
+                    <!-- Category: Frontend -->
+                    <div class="glass-panel skill-category-card">
+                        <div class="card-content">
+                            <h4><i class="fab fa-react icon-cyan"></i> Frontend Development</h4>
+                            <div class="skills-bar-grid">
+                                <div class="skill-percentage">
+                                    <div class="skill-name-flex"><span>React JS</span><span>85%</span></div>
+                                    <div class="progress-track"><div class="progress-fill fill-cyan" style="width: 85%;"></div></div>
+                                </div>
+                                <div class="skill-percentage">
+                                    <div class="skill-name-flex"><span>JavaScript (ES6+)</span><span>80%</span></div>
+                                    <div class="progress-track"><div class="progress-fill fill-cyan" style="width: 80%;"></div></div>
+                                </div>
+                                <div class="skill-percentage">
+                                    <div class="skill-name-flex"><span>HTML5 & CSS3</span><span>90%</span></div>
+                                    <div class="progress-track"><div class="progress-fill fill-cyan" style="width: 90%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category: Backend & Database -->
+                    <div class="glass-panel skill-category-card">
+                        <div class="card-content">
+                            <h4><i class="fas fa-server icon-purple"></i> Backend & Database</h4>
+                            <div class="skills-bar-grid">
+                                <div class="skill-percentage">
+                                    <div class="skill-name-flex"><span>Node JS</span><span>75%</span></div>
+                                    <div class="progress-track"><div class="progress-fill fill-purple" style="width: 75%;"></div></div>
+                                </div>
+                                <div class="skill-percentage">
+                                    <div class="skill-name-flex"><span>MySQL Database</span><span>70%</span></div>
+                                    <div class="progress-track"><div class="progress-fill fill-purple" style="width: 70%;"></div></div>
+                                </div>
+                                <div class="skill-percentage">
+                                    <div class="skill-name-flex"><span>Firebase Suite</span><span>80%</span></div>
+                                    <div class="progress-track"><div class="progress-fill fill-purple" style="width: 80%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category: Tools & Core -->
+                    <div class="glass-panel skill-category-card">
+                        <div class="card-content">
+                            <h4><i class="fas fa-tools icon-pink"></i> Software Tools & Core</h4>
+                            <div class="skills-bar-grid">
+                                <div class="skill-percentage">
+                                    <div class="skill-name-flex"><span>Java (OOP)</span><span>75%</span></div>
+                                    <div class="progress-track"><div class="progress-fill fill-pink" style="width: 75%;"></div></div>
+                                </div>
+                                <div class="skill-percentage">
+                                    <div class="skill-name-flex"><span>Git / GitHub Workflows</span><span>80%</span></div>
+                                    <div class="progress-track"><div class="progress-fill fill-pink" style="width: 80%;"></div></div>
+                                </div>
+                                <div class="skill-percentage">
+                                    <div class="skill-name-flex"><span>REST API Design</span><span>75%</span></div>
+                                    <div class="progress-track"><div class="progress-fill fill-pink" style="width: 75%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TIMELINE / CERTIFICATIONS SECTION -->
+        <section id="timeline" class="timeline-section">
+            <h2 class="section-title" data-reveal="fade-up">Certifications & Achievements</h2>
+            
+            <div class="timeline-container">
+                <!-- Timeline Line -->
+                <div class="timeline-center-line"></div>
+                
+                <!-- Event 1: NPTEL Certification -->
+                <div class="timeline-block block-left" data-reveal="fade-right">
+                    <div class="timeline-icon-box bg-cyan">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="timeline-card glass-panel">
+                        <div class="card-content">
+                            <span class="timeline-badge bg-cyan">Certification</span>
+                            <h3>NPTEL - Cloud Computing</h3>
+                            <span class="timeline-subtitle">IIT Kharagpur / Swayam Platform (2024)</span>
+                            <p>
+                                Completed comprehensive coursework in Cloud architecture models, virtualization techniques, 
+                                virtualization security, edge computing integration, and resource scheduling algorithms. 
+                                Demonstrates self-directed learning and dedication to tech fundamentals.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 2: Academic Recognition -->
+                <div class="timeline-block block-right" data-reveal="fade-left">
+                    <div class="timeline-icon-box bg-purple">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="timeline-card glass-panel">
+                        <div class="card-content">
+                            <span class="timeline-badge bg-purple">Academic Honor</span>
+                            <h3>Academic Excellence Award</h3>
+                            <span class="timeline-subtitle">Dr. NGP Institute of Technology</span>
+                            <p>
+                                Consistently recognized for academic consistency, maintaining a 7.94 / 10 GPA score 
+                                within the competitive Computer Science department.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 3: College Symposiums -->
+                <div class="timeline-block block-left" data-reveal="fade-right">
+                    <div class="timeline-icon-box bg-pink">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="timeline-card glass-panel">
+                        <div class="card-content">
+                            <span class="timeline-badge bg-pink">Event Participation</span>
+                            <h3>Technical Symposiums & Hackathons</h3>
+                            <span class="timeline-subtitle">Various Engineering Colleges</span>
+                            <p>
+                                Participated in multiple local hackathons and paper presentation contests. 
+                                Focused on solving system efficiency puzzles and presenting web-development paradigms 
+                                to academic juries.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 4: Medicare Initiative -->
+                <div class="timeline-block block-right" data-reveal="fade-left">
+                    <div class="timeline-icon-box bg-cyan">
+                        <i class="fas fa-heart animate-pulse-slow"></i>
+                    </div>
+                    <div class="timeline-card glass-panel">
+                        <div class="card-content">
+                            <span class="timeline-badge bg-cyan">Milestone Project</span>
+                            <h3>Self-Initiated Medicare Assist</h3>
+                            <span class="timeline-subtitle">Applying Development Skills for Healthcare</span>
+                            <p>
+                                Embarked on Medicare Assist as a personal project. Integrated React state management 
+                                with real-time Firebase subscriptions to address standard home-health compliance issues 
+                                faced by local elderly groups.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RECRUITER CORNER SECTION -->
+        <section id="recruiter" class="recruiter-section">
+            <h2 class="section-title" data-reveal="fade-up">Recruiter Q&amp;A Corner</h2>
+            <p class="section-subtitle" data-reveal="fade-up">Quick answers to what hiring managers and recruiters value most.</p>
+            
+            <div class="faq-accordion" data-reveal="fade-up">
+                <!-- Question 1 -->
+                <div class="faq-item glass-panel active">
+                    <button class="faq-question">
+                        <span>Why hire a Fresher like me?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            Freshers bring high adaptability, modern training, and zero technical debt. Because I have 
+                            actively built projects like <strong>SportSphere</strong> and **Medicare Assist** from scratch, 
+                            I already understand standard development cycles, debugging workflows, and Firebase deployment. 
+                            I require minimal hand-holding on React/Node, and am eager to integrate into your existing Git workflows.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="faq-item glass-panel">
+                    <button class="faq-question">
+                        <span>How do I demonstrate code quality and problem solving?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            My approach is visible in my projects: I designed the <strong>Smart Plant Irrigation System</strong> 
+                            to solve water wastage, reducing manual effort by 65%. I don't just write code; I structure 
+                            systems to solve human problems. My projects follow object-oriented principles, modular files, 
+                            and clean component breakdowns. You can audit my source patterns on GitHub directly.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="faq-item glass-panel">
+                    <button class="faq-question">
+                        <span>What is my target role and availability?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            I am seeking a <strong>Software Developer / IT Fresher</strong> or **Full-Stack Web Developer** 
+                            position. I am open to internships, co-op assignments, or full-time roles. I am willing to relocate 
+                            and adapt to onsite, remote, or hybrid arrangements. Let's schedule a technical interview!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="contact-section">
+            <h2 class="section-title" data-reveal="fade-up">Let's Connect</h2>
+            
+            <div class="contact-grid">
+                <!-- Contact Info Card -->
+                <div class="glass-panel contact-info-card" data-reveal="fade-right">
+                    <div class="card-glow-overlay"></div>
+                    <div class="card-content">
+                        <h3>Contact Information</h3>
+                        <p class="contact-preamble">Feel free to reach out to discuss job openings, project collaborations, or ask technical questions!</p>
+                        
+                        <ul class="contact-info-list">
+                            <li>
+                                <div class="info-icon bg-cyan"><i class="fas fa-envelope"></i></div>
+                                <div class="info-details">
+                                    <span>Email Address</span>
+                                    <a href="mailto:shrishivanesh007@gmail.com">shrishivanesh007@gmail.com</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="info-icon bg-purple"><i class="fas fa-phone-alt"></i></div>
+                                <div class="info-details">
+                                    <span>Phone Number</span>
+                                    <a href="tel:+917305789521">+91 73057 89521</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="info-icon bg-pink"><i class="fas fa-map-marker-alt"></i></div>
+                                <div class="info-details">
+                                    <span>Current Location</span>
+                                    <p>Rajapalayam, Tamil Nadu – 626117</p>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                        <hr class="card-divider">
+                        
+                        <h4>Find Me Online</h4>
+                        <div class="contact-socials">
+                            <a href="https://github.com/shivanesh7" target="_blank" rel="noopener noreferrer" class="social-circle github" title="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://linkedin.com/in/shri-shivanesh" target="_blank" rel="noopener noreferrer" class="social-circle linkedin" title="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Contact Form -->
+                <div class="glass-panel contact-form-card" data-reveal="fade-left">
+                    <div class="card-content">
+                        <h3>Send a Direct Message</h3>
+                        <form id="contact-form" class="interactive-form" novalidate>
+                            <div class="form-row">
+                                <div class="form-group floating-label-group">
+                                    <input type="text" id="form-name" required placeholder=" ">
+                                    <label for="form-name">Your Name</label>
+                                    <span class="focus-border"></span>
+                                    <span class="error-msg">Name is required</span>
+                                </div>
+                                <div class="form-group floating-label-group">
+                                    <input type="email" id="form-email" required placeholder=" ">
+                                    <label for="form-email">Email Address</label>
+                                    <span class="focus-border"></span>
+                                    <span class="error-msg">Provide a valid email address</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group floating-label-group">
+                                <input type="text" id="form-subject" required placeholder=" ">
+                                <label for="form-subject">Subject</label>
+                                <span class="focus-border"></span>
+                                <span class="error-msg">Subject is required</span>
+                            </div>
+                            
+                            <div class="form-group floating-label-group">
+                                <textarea id="form-message" required rows="5" placeholder=" "></textarea>
+                                <label for="form-message">Message</label>
+                                <span class="focus-border"></span>
+                                <span class="error-msg">Message cannot be blank</span>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-block" id="form-submit-btn">
+                                <span class="btn-text"><i class="fas fa-paper-plane"></i> Send Message</span>
+                                <span class="btn-loading-spinner" style="display: none;"><i class="fas fa-spinner fa-spin"></i> Sending...</span>
+                            </button>
+                            <div class="form-status-alert" id="form-status-alert" style="display: none;"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Shri Shivanesh S R. All Rights Reserved.</p>
+            <p class="footer-subtext">Designed &amp; coded with <i class="fas fa-heart text-pink animate-pulse-slow"></i> to stand out for Recruiters.</p>
+        </div>
+    </footer>
+
+    <!-- Three.js Library CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Core Portfolio Logic -->
+    <script src="app.js" type="module"></script>
+</body>
+</html>
