@@ -683,15 +683,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn("Three.js initialization failure. Fallback to basic transitions.", e);
     }
 
-    // ==========================================================================
-    // 10. Print Resume PDF Trigger
-    // ==========================================================================
-    const printResumeBtn = document.getElementById('btn-print-resume');
-    if (printResumeBtn) {
-        printResumeBtn.addEventListener('click', () => {
-            window.print();
-        });
-    }
+    // Note: Old print listener removed. Replaced by Section 13 PDF Lightbox modal.
 
     // ==========================================================================
     // 11. Contact Form Submissions & Validations
@@ -820,6 +812,93 @@ document.addEventListener('DOMContentLoaded', () => {
                 const secs = String(totalSeconds % 60).padStart(2, '0');
                 hudTimeDisplay.textContent = `${hrs}:${mins}:${secs}`;
             }, 1000);
+        }
+    }
+
+    // ==========================================================================
+    // 13. PDF Resume Lightbox Modal Controller
+    // ==========================================================================
+    const printResumeBtn = document.getElementById('btn-print-resume');
+    const pdfModal = document.getElementById('pdf-modal');
+    const pdfModalOverlay = document.getElementById('pdf-modal-overlay');
+    const pdfCloseBtn = document.getElementById('pdf-close-btn');
+    const pdfPrintBtn = document.getElementById('pdf-print-btn');
+    const pdfIframe = document.getElementById('pdf-iframe');
+    const pdfModalContainer = document.querySelector('.pdf-modal-container');
+
+    if (printResumeBtn && pdfModal) {
+        // Intercept standard click on "Get Resume"
+        printResumeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openPdfModal();
+        });
+
+        // Close functions
+        pdfCloseBtn.addEventListener('click', closePdfModal);
+        pdfModalOverlay.addEventListener('click', closePdfModal);
+        
+        // Escape key close support
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && pdfModal.classList.contains('active')) {
+                closePdfModal();
+            }
+        });
+
+        function openPdfModal() {
+            pdfModal.classList.add('active');
+            pdfModal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden'; // Stop scroll in background
+            
+            // Check if PDF loaded correctly or if we fall back
+            if (pdfIframe) {
+                pdfIframe.onload = function() {
+                    try {
+                        const iframeDoc = pdfIframe.contentDocument || pdfIframe.contentWindow.document;
+                        if (iframeDoc && (iframeDoc.body.innerHTML.includes('File Not Found') || iframeDoc.body.innerHTML.includes('404'))) {
+                            pdfModalContainer.classList.remove('pdf-loaded');
+                        } else {
+                            pdfModalContainer.classList.add('pdf-loaded');
+                        }
+                    } catch (err) {
+                        pdfModalContainer.classList.add('pdf-loaded');
+                    }
+                };
+            }
+        }
+
+        function closePdfModal() {
+            pdfModal.classList.remove('active');
+            pdfModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = 'auto'; // Restore scroll
+        }
+
+        // Print iframe content or open fallback window print
+        if (pdfPrintBtn) {
+            pdfPrintBtn.addEventListener('click', () => {
+                if (pdfModalContainer.classList.contains('pdf-loaded') && pdfIframe) {
+                    try {
+                        pdfIframe.contentWindow.focus();
+                        pdfIframe.contentWindow.print();
+                    } catch (e) {
+                        window.print();
+                    }
+                } else {
+                    const printContent = document.getElementById('pdf-fallback-container').innerHTML;
+                    const printWindow = window.open('', '_blank', 'height=600,width=800');
+                    printWindow.document.write('<html><head><title>Print Resume</title>');
+                    printWindow.document.write('<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">');
+                    printWindow.document.write('<style>body{font-family:"Inter",sans-serif;padding:30px;line-height:1.5;} h1{text-align:center;font-size:24px;margin-bottom:5px;} .resume-sub{text-align:center;font-size:12px;color:#555;text-transform:uppercase;margin-bottom:15px;} .resume-contact{text-align:center;font-size:11px;color:#666;margin-bottom:20px;} h3{font-size:13px;border-bottom:1px solid #ccc;padding-bottom:5px;margin-top:20px;text-transform:uppercase;} .resume-item{margin-bottom:15px;} .resume-item-title{display:flex;justify-content:space-between;font-weight:bold;font-size:12px;} .resume-item-sub{font-style:italic;font-size:11px;color:#555;} .resume-item-desc{font-size:11.5px;color:#333;margin-top:3px;} p{font-size:12px;margin:3px 0;}</style>');
+                    printWindow.document.write('</head><body>');
+                    printWindow.document.write(printContent);
+                    printWindow.document.write('</body></html>');
+                    printWindow.document.close();
+                    printWindow.focus();
+                    setTimeout(() => {
+                        printWindow.print();
+                        printWindow.close();
+                    }, 500);
+                }
+            });
         }
     }
 });

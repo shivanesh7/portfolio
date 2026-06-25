@@ -839,6 +839,110 @@
         </div>
     </footer>
 
+    <!-- 5. PDF Resume Lightbox Modal -->
+    <div class="pdf-modal" id="pdf-modal" aria-hidden="true" role="dialog">
+        <div class="pdf-modal-overlay" id="pdf-modal-overlay"></div>
+        <div class="pdf-modal-container">
+            <div class="pdf-modal-header">
+                <div class="pdf-modal-title">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Shri Shivanesh - Resume.pdf</span>
+                </div>
+                <div class="pdf-modal-actions">
+                    <a href="resume.pdf" download="Shri_Shivanesh_Resume.pdf" class="btn-hud btn-hud-accent" id="pdf-download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                    <button class="btn-hud" id="pdf-print-btn">
+                        <i class="fas fa-print"></i> Print
+                    </button>
+                    <button class="btn-hud btn-hud-close" id="pdf-close-btn" aria-label="Close modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="pdf-modal-body">
+                <!-- Attempt loading pdf -->
+                <iframe src="resume.pdf" class="pdf-iframe" id="pdf-iframe"></iframe>
+                
+                <!-- Fallback premium styled resume content if PDF fails/absent -->
+                <div class="pdf-fallback-container" id="pdf-fallback-container">
+                    <div class="fallback-resume-sheet">
+                        <div class="resume-header-block">
+                            <h1>SHRI SHIVANESH S R</h1>
+                            <p class="resume-sub">Software Developer | Full-Stack Web Developer | IoT Enthusiast</p>
+                            <p class="resume-contact">
+                                <i class="fas fa-envelope"></i> shrishivanesh007@gmail.com &nbsp;|&nbsp; 
+                                <i class="fas fa-phone"></i> +91 73057 89521 &nbsp;|&nbsp; 
+                                <i class="fas fa-map-marker-alt"></i> Rajapalayam, Tamil Nadu
+                            </p>
+                        </div>
+                        
+                        <div class="resume-section-block">
+                            <h3><i class="fas fa-graduation-cap"></i> EDUCATION</h3>
+                            <hr class="resume-hr">
+                            <div class="resume-item">
+                                <div class="resume-item-title">
+                                    <strong>B.E. Computer Science & Engineering</strong>
+                                    <span>2023 - 2027</span>
+                                </div>
+                                <div class="resume-item-sub">Dr. NGP Institute of Technology, Coimbatore (CGPA: 7.94 / 10)</div>
+                            </div>
+                            <div class="resume-item">
+                                <div class="resume-item-title">
+                                    <strong>Higher Secondary Certificate (HSC)</strong>
+                                    <span>2021 - 2023</span>
+                                </div>
+                                <div class="resume-item-sub">Sri Ramana Vidyalaya (Percentage: 91%)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="resume-section-block">
+                            <h3><i class="fas fa-code"></i> TECHNICAL SKILLS</h3>
+                            <hr class="resume-hr">
+                            <p><strong>Languages:</strong> Java (OOP), JavaScript (ES6+), HTML5, CSS3, Embedded C</p>
+                            <p><strong>Frameworks & Libraries:</strong> React.js, Node.js, Express.js, Three.js</p>
+                            <p><strong>Databases & Platforms:</strong> MongoDB, MySQL, Firebase Firestore, Firebase Suite, Git/GitHub</p>
+                            <p><strong>Hardware & IoT:</strong> Microcontrollers (ESP8266/ESP32, Arduino), IoT Sensors</p>
+                        </div>
+                        
+                        <div class="resume-section-block">
+                            <h3><i class="fas fa-project-diagram"></i> FEATURED PROJECTS</h3>
+                            <hr class="resume-hr">
+                            <div class="resume-item">
+                                <div class="resume-item-title">
+                                    <strong>Sniply — URL Shortener with Analytics</strong>
+                                    <span>Hackathon Winner</span>
+                                </div>
+                                <p class="resume-item-desc">A full-stack URL shortener featuring JWT authentication, real-time analytics chart metrics (Recharts), customizable link aliases, downloadable QR codes, and expire settings. Built with React.js, Express.js, and MongoDB.</p>
+                            </div>
+                            <div class="resume-item">
+                                <div class="resume-item-title">
+                                    <strong>SportSphere — Event Management Dashboard</strong>
+                                    <span>React & Firebase</span>
+                                </div>
+                                <p class="resume-item-desc">Sports scheduler simplifying registration, tournament bracket brackets, and public live score tracking utilizing Cloud Firestore.</p>
+                            </div>
+                            <div class="resume-item">
+                                <div class="resume-item-title">
+                                    <strong>Smart Plant Irrigation</strong>
+                                    <span>IoT & Embedded C</span>
+                                </div>
+                                <p class="resume-item-desc">Automated soil moisture sensing system controlling water pumps via microcontrollers, cutting irrigation labor by 65%.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="resume-section-block">
+                            <h3><i class="fas fa-award"></i> CERTIFICATIONS & SYMPOSIUMS</h3>
+                            <hr class="resume-hr">
+                            <p><strong>NPTEL Cloud Computing:</strong> Swayam / IIT Kharagpur (Elite Certificate)</p>
+                            <p><strong>Technical Symposiums:</strong> Participated in multiple regional hackathons, resolving algorithms under SDLC structures.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Three.js Library CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
