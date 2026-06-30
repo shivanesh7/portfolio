@@ -41,20 +41,47 @@
         <div class="grid-overlay"></div>
     </div>
 
-    <!-- 2. Translucent Navigation Bar -->
+    <!-- 2. Spaceship HUD Navigation Bar -->
     <nav class="navbar" id="navbar">
         <div class="logo">
             <span class="logo-symbol">&lt;</span>S<span class="logo-accent">S</span><span class="logo-symbol">/&gt;</span>
         </div>
-        <ul class="nav-links">
-            <li><a href="#hero" class="active">Home</a></li>
-            <li><a href="#profile">Profile</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#timeline">Achievements</a></li>
-            <li><a href="#recruiter">Recruiter Corner</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+        
+        <div class="nav-container-hud">
+            <ul class="nav-links">
+                <li><a href="#hero" class="active"><i class="fas fa-home nav-icon"></i><span>Home</span></a></li>
+                <li><a href="#profile"><i class="fas fa-user-circle nav-icon"></i><span>Profile</span></a></li>
+                <li><a href="#projects"><i class="fas fa-project-diagram nav-icon"></i><span>Projects</span></a></li>
+                <li><a href="#skills"><i class="fas fa-globe nav-icon"></i><span>Skills</span></a></li>
+                <li><a href="#timeline"><i class="fas fa-award nav-icon"></i><span>Achievements</span></a></li>
+                <li><a href="#recruiter"><i class="fas fa-briefcase nav-icon"></i><span>Recruiter Q&A</span></a></li>
+                <li><a href="#contact"><i class="fas fa-envelope nav-icon"></i><span>Contact</span></a></li>
+            </ul>
+        </div>
+
+        <div class="navbar-system-hud">
+            <div class="hud-status-item connection-status" title="Connection: Secure Link Established">
+                <i class="fas fa-wifi icon-pulse-slow"></i>
+                <div class="connection-bars">
+                    <span class="bar active"></span>
+                    <span class="bar active"></span>
+                    <span class="bar active"></span>
+                </div>
+            </div>
+            
+            <div class="hud-status-item battery-status" title="Energy Level: 100% Fresher Motivation">
+                <div class="battery-icon">
+                    <span class="battery-cap"></span>
+                    <span class="battery-fill-level"></span>
+                </div>
+                <span class="battery-pct">100% FRE</span>
+            </div>
+            
+            <div class="hud-status-item clock-status" id="nav-clock-display">
+                00:00:00 AM
+            </div>
+        </div>
+
         <button class="nav-toggle" aria-label="Toggle navigation" id="nav-toggle">
             <i class="fas fa-bars"></i>
         </button>
@@ -94,29 +121,102 @@
     </div>
 
     <!-- 4. Floating Recruiter Quick Actions Panel (Right Side Desktop) -->
-    <div class="recruiter-quick-card" id="recruiter-quick-card">
-        <div class="quick-header">
-            <i class="fas fa-briefcase"></i>
-            <span>Recruiter Center</span>
-        </div>
-        <div class="quick-body">
-            <div class="quick-status">
-                <span class="pulse-indicator"></span>
-                <span>Active Candidate (Fresher)</span>
+    <!-- 4. Floating Recruiter HUD Command Console (Right Side Desktop) -->
+    <div class="recruiter-quick-card collapsed" id="recruiter-quick-card">
+        <!-- Collapse/Expand handle button (styled as a vertical cyberpunk tab) -->
+        <button class="recruiter-toggle-btn" id="recruiter-toggle-btn" aria-label="Toggle Recruiter Center" title="Toggle Recruiter Center">
+            <i class="fas fa-chevron-left toggle-icon"></i>
+            <span class="tab-vertical-text">RECRUITER CONSOLE</span>
+            <span class="hud-status-dot pulse-green"></span>
+        </button>
+
+        <div class="hud-panel-frame">
+            <!-- Corner Brackets -->
+            <div class="hud-corner top-left"></div>
+            <div class="hud-corner top-right"></div>
+            <div class="hud-corner bottom-left"></div>
+            <div class="hud-corner bottom-right"></div>
+
+            <div class="quick-header">
+                <div class="header-indicator">
+                    <i class="fas fa-terminal"></i>
+                    <span>SYS_CONSOLE://REC</span>
+                </div>
+                <div class="console-signal">
+                    <span class="pulse-indicator-fast"></span>
+                    <span class="signal-tag">ONLINE</span>
+                </div>
             </div>
-            <ul class="quick-stats">
-                <li><i class="fas fa-graduation-cap"></i> B.E. CSE (Grad 2027)</li>
-                <li><i class="fas fa-star"></i> GPA: <strong>7.94 / 10</strong></li>
-                <li><i class="fas fa-check-circle"></i> NPTEL Certified</li>
-                <li><i class="fas fa-code"></i> React / Node / IoT</li>
-            </ul>
-            <div class="quick-actions">
-                <button class="btn btn-primary btn-sm btn-block" id="btn-print-resume">
-                    <i class="fas fa-download"></i> Get Resume (PDF)
-                </button>
-                <a href="#contact" class="btn btn-accent btn-sm btn-block text-center">
-                    <i class="fas fa-paper-plane"></i> Quick Hire/Email
-                </a>
+
+            <div class="quick-body">
+                <!-- System Diagnostics Ticker -->
+                <div class="console-diagnostics">
+                    <div class="diag-row">
+                        <span class="diag-label">CANDIDATE:</span>
+                        <span class="diag-value font-highlight">S. SHIVANESH</span>
+                    </div>
+                    <div class="diag-row">
+                        <span class="diag-label">ROLE SPEC:</span>
+                        <span class="diag-value">FULL-STACK / IoT</span>
+                    </div>
+                    <div class="diag-row">
+                        <span class="diag-label">GPA STATUS:</span>
+                        <span class="diag-value success-text">7.94 / 10.0</span>
+                    </div>
+                </div>
+
+                <!-- Telemetry Stats Section (Visual Bars) -->
+                <div class="telemetry-section">
+                    <div class="telemetry-bar-item">
+                        <div class="telemetry-label-row">
+                            <span>Front-end Dev</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="telemetry-progress-bg">
+                            <div class="telemetry-progress-fill" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    <div class="telemetry-bar-item">
+                        <div class="telemetry-label-row">
+                            <span>Back-end & Firebase</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="telemetry-progress-bg">
+                            <div class="telemetry-progress-fill" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    <div class="telemetry-bar-item">
+                        <div class="telemetry-label-row">
+                            <span>IoT Smart Systems</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="telemetry-progress-bg">
+                            <div class="telemetry-progress-fill" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-stats-hud">
+                    <div class="stat-badge"><i class="fas fa-graduation-cap"></i> B.E. CSE</div>
+                    <div class="stat-badge"><i class="fas fa-certificate"></i> NPTEL Cert</div>
+                    <div class="stat-badge"><i class="fas fa-microchip"></i> Arduino/IoT</div>
+                </div>
+
+                <!-- Interactive Retro Console log ticker -->
+                <div class="hud-log-box" id="hud-log-box">
+                    <div class="log-line">> Initiating recruiter handshake...</div>
+                    <div class="log-line">> Status: 100% fresher motivation.</div>
+                    <div class="log-line">> Click "Get Resume" to unlock PDF.</div>
+                </div>
+
+                <div class="quick-actions">
+                    <button class="btn btn-primary btn-sm btn-block" id="btn-print-resume">
+                        <i class="fas fa-download"></i> Get Resume (PDF)
+                    </button>
+                    <a href="#contact" class="btn btn-accent btn-sm btn-block text-center" id="quick-hire-btn">
+                        <i class="fas fa-paper-plane"></i> Quick Hire / Email
+                    </a>
+                </div>
             </div>
         </div>
     </div>

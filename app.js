@@ -901,4 +901,73 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+
+    // ==========================================================================
+    // 14. Spaceship HUD Clock Ticker
+    // ==========================================================================
+    const navClockDisplay = document.getElementById('nav-clock-display');
+    if (navClockDisplay) {
+        function updateNavClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            const formattedHours = String(hours).padStart(2, '0');
+            navClockDisplay.textContent = `${formattedHours}:${minutes}:${seconds} ${ampm}`;
+        }
+        updateNavClock();
+        setInterval(updateNavClock, 1000);
+    }
+
+    // ==========================================================================
+    // 15. Collapsible Recruiter Command Console & Live Log System
+    // ==========================================================================
+    const recruiterCard = document.getElementById('recruiter-quick-card');
+    const recruiterToggle = document.getElementById('recruiter-toggle-btn');
+    const hudLogBox = document.getElementById('hud-log-box');
+
+    if (recruiterCard && recruiterToggle) {
+        recruiterToggle.addEventListener('click', () => {
+            const isCollapsed = recruiterCard.classList.contains('collapsed');
+            if (isCollapsed) {
+                recruiterCard.classList.remove('collapsed');
+                recruiterToggle.setAttribute('title', 'Close Recruiter Center');
+                simulateConsoleLogs();
+            } else {
+                recruiterCard.classList.add('collapsed');
+                recruiterToggle.setAttribute('title', 'Open Recruiter Center');
+            }
+        });
+
+        function simulateConsoleLogs() {
+            if (!hudLogBox) return;
+            hudLogBox.innerHTML = '';
+            const logLines = [
+                "> Initiating connection to recruit_srv...",
+                "> Handshake: SUCCESS (SECURE_LINK)",
+                "> Syncing candidate profile metrics...",
+                "> Milestone verified: GPA 7.94 CGPA",
+                "> Projects indexed: Sportsphere, Medicare, Smart Garden, Sniply",
+                "> Fresher raw motivation: 100% (STABLE)",
+                "> Ready for recruitment review."
+            ];
+            let lineIndex = 0;
+
+            function printNextLine() {
+                if (lineIndex < logLines.length) {
+                    const p = document.createElement('div');
+                    p.className = 'log-line';
+                    p.textContent = logLines[lineIndex];
+                    hudLogBox.appendChild(p);
+                    hudLogBox.scrollTop = hudLogBox.scrollHeight;
+                    lineIndex++;
+                    setTimeout(printNextLine, 400);
+                }
+            }
+            printNextLine();
+        }
+    }
 });
